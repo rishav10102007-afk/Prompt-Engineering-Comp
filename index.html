@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Save this as **`index.html`** and upload it to GitHub:
 
 ```html
@@ -826,3 +827,832 @@ Save this as **`index.html`** and upload it to GitHub:
 </body>
 </html>
 ```
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumina — Travel Beyond</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --green: #19342d;
+      --dark: #17231f;
+      --cream: #f4f1ea;
+      --orange: #df9c63;
+      --muted: #69736d;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .page {
+      overflow: hidden;
+    }
+
+    .hero {
+      min-height: 720px;
+      height: 100vh;
+      color: white;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        linear-gradient(90deg, rgba(8, 24, 19, .8), rgba(8, 24, 19, .2)),
+        url("https://images.unsplash.com/photo-1760524163814-4432a46c3726?auto=format&fit=crop&w=2000&q=85")
+        center/cover;
+      animation: zoom 12s ease-out;
+    }
+
+    @keyframes zoom {
+      from { background-size: 110%; }
+      to { background-size: 100%; }
+    }
+
+    nav {
+      width: min(1180px, calc(100% - 60px));
+      margin: auto;
+      padding: 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      border: 0;
+      background: transparent;
+      color: white;
+      font-weight: 600;
+      font-size: 20px;
+      letter-spacing: -1px;
+    }
+
+    .logo span {
+      color: var(--orange);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links button {
+      border: 0;
+      background: transparent;
+      color: white;
+      font-size: 13px;
+      opacity: .85;
+      transition: .25s;
+    }
+
+    .nav-links button:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+
+    .nav-cta {
+      border: 1px solid rgba(255,255,255,.5) !important;
+      border-radius: 30px;
+      padding: 11px 18px;
+    }
+
+    .hero-content {
+      width: min(1180px, calc(100% - 60px));
+      margin: auto;
+      animation: rise .8s ease both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .eyebrow,
+    .section-label {
+      color: #aebeb1;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 11px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Playfair Display", serif;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: clamp(60px, 9vw, 118px);
+      line-height: .9;
+      letter-spacing: -6px;
+      margin: 28px 0;
+    }
+
+    h1 em,
+    h2 em {
+      font-weight: 500;
+    }
+
+    .hero-copy {
+      max-width: 330px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.75);
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      margin-top: 32px;
+    }
+
+    .button {
+      border: 0;
+      border-radius: 40px;
+      padding: 15px 22px;
+      display: inline-block;
+      transition: .25s;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .light-button {
+      background: white;
+      color: var(--dark);
+    }
+
+    .hero-actions button:last-child {
+      border: 0;
+      color: white;
+      background: transparent;
+    }
+
+    .hero-footer {
+      width: min(1180px, calc(100% - 60px));
+      margin: auto;
+      padding-bottom: 27px;
+      color: rgba(255,255,255,.7);
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .content {
+      width: min(1180px, calc(100% - 60px));
+      margin: auto;
+    }
+
+    .intro {
+      padding: 140px 0;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15%;
+      margin-top: 55px;
+    }
+
+    h2 {
+      font-size: clamp(48px, 6vw, 76px);
+      line-height: .95;
+      letter-spacing: -4px;
+    }
+
+    .intro-text {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .intro-text strong {
+      display: block;
+      color: var(--dark);
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      line-height: 1.2;
+      margin-bottom: 25px;
+    }
+
+    .destination-section {
+      background: #e6e7df;
+      padding: 120px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 45px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 8px;
+    }
+
+    .filters button {
+      border: 1px solid #bdc5bc;
+      background: transparent;
+      border-radius: 30px;
+      padding: 9px 15px;
+      color: #69736d;
+      font-size: 12px;
+    }
+
+    .filters button.active {
+      color: white;
+      background: var(--dark);
+      border-color: var(--dark);
+    }
+
+    .destination-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 15px;
+      height: 470px;
+    }
+
+    .destination {
+      border: 0;
+      color: white;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      background: #aaa;
+    }
+
+    .destination img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .7s;
+    }
+
+    .destination:hover img {
+      transform: scale(1.07);
+    }
+
+    .destination::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 35%, rgba(0,0,0,.75));
+    }
+
+    .destination-info {
+      position: absolute;
+      z-index: 1;
+      left: 25px;
+      right: 25px;
+      bottom: 22px;
+    }
+
+    .destination-info small {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .destination h3 {
+      font-size: 32px;
+      margin: 8px 0 18px;
+    }
+
+    .experience-section {
+      padding: 140px 0;
+    }
+
+    .experience {
+      border-top: 1px solid #d7dbd5;
+      padding: 16px 0;
+      display: grid;
+      grid-template-columns: 50px 150px 1fr 100px;
+      gap: 20px;
+      align-items: center;
+      transition: .3s;
+    }
+
+    .experience:last-child {
+      border-bottom: 1px solid #d7dbd5;
+    }
+
+    .experience:hover {
+      padding-left: 15px;
+      background: #eceae3;
+    }
+
+    .experience img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+    }
+
+    .experience h3 {
+      font-size: 27px;
+    }
+
+    .experience small {
+      color: var(--muted);
+    }
+
+    .planner {
+      background: var(--green);
+      color: white;
+      padding: 120px 0;
+    }
+
+    .planner p {
+      color: #bdc9bf;
+      margin-top: 22px;
+    }
+
+    .orange-button {
+      background: var(--orange);
+      color: var(--dark);
+      margin-top: 30px;
+    }
+
+    footer {
+      width: min(1180px, calc(100% - 60px));
+      margin: auto;
+      padding: 100px 0 25px;
+    }
+
+    .footer-grid {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      line-height: 1;
+      margin-top: 35px;
+    }
+
+    .newsletter {
+      width: 330px;
+    }
+
+    .newsletter h3 {
+      font-size: 35px;
+      margin: 20px 0;
+    }
+
+    form {
+      display: flex;
+      border-bottom: 1px solid #aab2aa;
+    }
+
+    input {
+      border: 0;
+      outline: 0;
+      background: transparent;
+      padding: 13px 0;
+      flex: 1;
+    }
+
+    form button {
+      border: 0;
+      background: transparent;
+    }
+
+    .success {
+      color: #4e815f;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .copyright {
+      border-top: 1px solid #d7dbd5;
+      margin-top: 100px;
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      color: #89928b;
+      font-size: 11px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,25,20,.7);
+      z-index: 10;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-box {
+      position: relative;
+      max-width: 700px;
+      width: 100%;
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      animation: rise .4s ease;
+    }
+
+    .modal-box img {
+      width: 100%;
+      height: 100%;
+      min-height: 350px;
+      object-fit: cover;
+    }
+
+    .modal-content {
+      padding: 50px 35px;
+      align-self: center;
+    }
+
+    .modal-content h2 {
+      font-size: 45px;
+      margin: 20px 0 12px;
+    }
+
+    .close {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      border: 0;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      background: white;
+    }
+
+    @media(max-width: 700px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: 680px;
+      }
+
+      .intro {
+        padding: 90px 0;
+      }
+
+      .intro-grid {
+        display: block;
+      }
+
+      .intro-text {
+        margin-top: 35px;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .filters {
+        margin-top: 25px;
+      }
+
+      .destination-grid {
+        height: 600px;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 330px 240px;
+      }
+
+      .destination:first-child {
+        grid-column: span 2;
+      }
+
+      .experience {
+        grid-template-columns: 25px 80px 1fr;
+        gap: 10px;
+      }
+
+      .experience h3 {
+        font-size: 19px;
+      }
+
+      .experience small {
+        font-size: 11px;
+      }
+
+      .footer-grid {
+        display: block;
+      }
+
+      .newsletter {
+        width: 100%;
+        margin-top: 70px;
+      }
+
+      .modal-box {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-box img {
+        min-height: 220px;
+        max-height: 240px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <section class="hero" id="home">
+      <nav>
+        <button class="logo" onclick="scrollToSection('home')">
+          Lumina<span>.</span>
+        </button>
+
+        <div class="nav-links">
+          <button onclick="scrollToSection('destinations')">Destinations</button>
+          <button onclick="scrollToSection('experiences')">Experiences</button>
+          <button onclick="scrollToSection('planner')">Plan a journey</button>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <div class="eyebrow">Curated journeys for the curious</div>
+        <h1>Go where<br><em>you feel alive.</em></h1>
+        <p class="hero-copy">
+          The world is wide. We make finding your corner of it feel effortless.
+        </p>
+
+        <div class="hero-actions">
+          <button class="button light-button" onclick="scrollToSection('destinations')">
+            Explore destinations →
+          </button>
+          <button onclick="scrollToSection('experiences')">
+            ◉ Watch our story
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-footer">
+        <span>Scroll to explore</span>
+        <span>01 — 04</span>
+      </div>
+    </section>
+
+    <section class="intro content">
+      <div class="section-label">01 — Our point of view</div>
+
+      <div class="intro-grid">
+        <h2>Travel is not<br>about <em>places.</em></h2>
+
+        <div class="intro-text">
+          <strong>It is about the version of yourself you meet there.</strong>
+          We pair thoughtful routes with the small, unscripted moments that make a journey yours.
+          No checklists. No crowds. Just the world, opened up.
+        </div>
+      </div>
+    </section>
+
+    <section class="destination-section" id="destinations">
+      <div class="content">
+        <div class="section-heading">
+          <div>
+            <div class="section-label">02 — Find your horizon</div>
+            <h2>Places that<br><em>stay with you.</em></h2>
+          </div>
+
+          <div class="filters">
+            <button class="active" onclick="filterPlaces('all', this)">All places</button>
+            <button onclick="filterPlaces('coastal', this)">Coastal</button>
+            <button onclick="filterPlaces('wild', this)">Wild</button>
+          </div>
+        </div>
+
+        <div class="destination-grid">
+          <button class="destination coastal" onclick="openModal(
+            'Amalfi Coast',
+            'Italy · Coastal escape',
+            'https://images.unsplash.com/photo-1760524163814-4432a46c3726?auto=format&fit=crop&w=1000&q=85'
+          )">
+            <img src="https://images.unsplash.com/photo-1760524163814-4432a46c3726?auto=format&fit=crop&w=1000&q=85" alt="Amalfi Coast">
+            <div class="destination-info">
+              <small>Italy</small>
+              <h3>Amalfi Coast</h3>
+              <small>Coastal escape</small>
+            </div>
+          </button>
+
+          <button class="destination wild" onclick="openModal(
+            'Swiss Alps',
+            'Switzerland · Into the wild',
+            'https://images.unsplash.com/photo-1773330123668-e3bcd61a2505?auto=format&fit=crop&w=1000&q=85'
+          )">
+            <img src="https://images.unsplash.com/photo-1773330123668-e3bcd61a2505?auto=format&fit=crop&w=1000&q=85" alt="Swiss Alps">
+            <div class="destination-info">
+              <small>Switzerland</small>
+              <h3>Swiss Alps</h3>
+              <small>Into the wild</small>
+            </div>
+          </button>
+
+          <button class="destination coastal" onclick="openModal(
+            'Santorini',
+            'Greece · Blue hour',
+            'https://images.pexels.com/photos/10611221/pexels-photo-10611221.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+          )">
+            <img src="https://images.pexels.com/photos/10611221/pexels-photo-10611221.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="Santorini">
+            <div class="destination-info">
+              <small>Greece</small>
+              <h3>Santorini</h3>
+              <small>Blue hour</small>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience-section content" id="experiences">
+      <div class="section-heading">
+        <div>
+          <div class="section-label">03 — The good stuff</div>
+          <h2>Not tours.<br><em>Stories in motion.</em></h2>
+        </div>
+      </div>
+
+      <div class="experience">
+        <span>01</span>
+        <img src="https://images.pexels.com/photos/13650553/pexels-photo-13650553.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sailing">
+        <div>
+          <h3>Sail the Aegean</h3>
+          <small>Cyclades, Greece</small>
+        </div>
+        <small>7 days</small>
+      </div>
+
+      <div class="experience">
+        <span>02</span>
+        <img src="https://images.unsplash.com/photo-1773330123668-e3bcd61a2505?auto=format&fit=crop&w=800&q=85" alt="Alps">
+        <div>
+          <h3>The Alpine Quiet</h3>
+          <small>Graubünden, Switzerland</small>
+        </div>
+        <small>5 days</small>
+      </div>
+
+      <div class="experience">
+        <span>03</span>
+        <img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?auto=format&fit=crop&w=800&q=85" alt="Desert">
+        <div>
+          <h3>Desert Stargazing</h3>
+          <small>Wadi Rum, Jordan</small>
+        </div>
+        <small>4 days</small>
+      </div>
+    </section>
+
+    <section class="planner" id="planner">
+      <div class="content">
+        <div class="section-label">04 — Start somewhere</div>
+        <h2>Where will you<br><em>go next?</em></h2>
+        <p>Tell us what moves you. We’ll handle the rest.</p>
+        <button class="button orange-button" onclick="openModal(
+          'Your next journey',
+          'The world · A route made for you',
+          'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85'
+        )">
+          Start planning →
+        </button>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-grid">
+        <div>
+          <button class="logo" style="color:#17231f">Lumina<span>.</span></button>
+          <div class="footer-copy">For the places<br>that change you.</div>
+        </div>
+
+        <div class="newsletter">
+          <div class="section-label">Stay in the loop</div>
+          <h3>Letters from<br><em>out there.</em></h3>
+
+          <form onsubmit="subscribe(event)">
+            <input id="email" type="email" placeholder="Your email address" required>
+            <button type="submit">→</button>
+          </form>
+
+          <div id="success"></div>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <span>© 2025 Lumina Travel Co.</span>
+        <span>Made for the curious ●</span>
+      </div>
+    </footer>
+
+    <div class="modal" id="modal" onclick="closeModal(event)">
+      <div class="modal-box">
+        <button class="close" onclick="closeModal()">×</button>
+        <img id="modal-image" src="" alt="">
+        <div class="modal-content">
+          <div class="section-label">Your next chapter</div>
+          <h2 id="modal-title"></h2>
+          <p id="modal-description"></p>
+          <button class="button orange-button" onclick="scrollToSection('planner'); closeModal()">
+            Make it yours →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    function filterPlaces(type, clickedButton) {
+      document.querySelectorAll(".filters button").forEach(button => {
+        button.classList.remove("active");
+      });
+
+      clickedButton.classList.add("active");
+
+      document.querySelectorAll(".destination").forEach(card => {
+        if (type === "all" || card.classList.contains(type)) {
+          card.style.display = "block";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    function openModal(title, description, image) {
+      document.getElementById("modal-title").textContent = title;
+      document.getElementById("modal-description").textContent = description;
+      document.getElementById("modal-image").src = image;
+      document.getElementById("modal").classList.add("open");
+    }
+
+    function closeModal(event) {
+      if (!event || event.target.id === "modal" || event.target.classList.contains("close")) {
+        document.getElementById("modal").classList.remove("open");
+      }
+    }
+
+    function subscribe(event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value;
+
+      if (email) {
+        document.getElementById("success").textContent =
+          "You’re on the list. See you out there.";
+        document.getElementById("email").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
+```
+
+
+>>>>>>> aa7f5ce0224ca6b33cbba5b274bdf51853bef316
