@@ -1,98 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
+import pygame
+import random
+import sys
 
-        header {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
+pygame.init()
 
-        nav {
-            background-color: #333;
-            padding: 12px;
-            text-align: center;
-        }
+# Game settings
+WIDTH, HEIGHT = 800, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Space Shooting Game")
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 15px;
-        }
+clock = pygame.time.Clock()
+font = pygame.font.SysFont(None, 36)
 
-        section {
-            padding: 30px;
-            text-align: center;
-        }
+# Colors
+WHITE = (255, 255, 255)
+BLUE = (50, 150, 255)
+RED = (255, 60, 60)
+YELLOW = (255, 230, 0)
+BLACK = (10, 10, 30)
 
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-        }
+# Player
+player = pygame.Rect(375, 520, 50, 40)
+player_speed = 6
 
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 15px;
-        }
-    </style>
-</head>
+# Bullets and enemies
+bullets = []
+enemies = []
+score = 0
+game_over = False
 
-<body>
+def draw_text(text, x, y, color=WHITE):
+    image = font.render(text, True, color)
+    screen.blit(image, (x, y))
 
-    <header>
-        <h1>Welcome to My Website</h1>
-        <p>Your website tagline goes here</p>
-    </header>
+running = True
 
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
-    </nav>
+while running:
+    clock.tick(60)
 
-    <section id="home">
-        <h2>Home</h2>
-        <p>Welcome to my first website!</p>
-        <button onclick="alert('Hello! Welcome to my website!')">
-            Get Started
-        </button>
-    </section>
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>This is a simple website created using HTML and CSS.</p>
-    </section>
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE and not game_over:
+                bullets.append(
+                    pygame.Rect(player.centerx - 4, player.top, 8, 18)
+                )
 
-    <section id="services">
-        <h2>Our Services</h2>
-        <p>We provide quality services to our customers.</p>
-    </section>
+            if event.key == pygame.K_r and game_over:
+                player.x = 375
+                bullets.clear()
+                enemies.clear()
+                score = 0
+                game_over = False
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: example@email.com</p>
-    </section>
+    if not game_over:
+        keys = pygame.key.get_pressed()
 
-    <footer>
-        <p>&copy; 2026 My Website. All rights reserved.</p>
-    </footer>
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            player.x -= player_speed
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            player.x += player_speed
+        if keys[pygame.K_UP] or keys[pygame.K_w]:
+            player.y -= player_speed
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            player.y += player_speed
 
-</body>
-</html>
+        player.clamp_ip(screen.get_rect())
+
+        # Create enemies
+        if random.randrange(30) == 0:
+            enemies.append(
+                pygame.Rect(random.randint(0, WIDTH - 40), -40, 40, 35)
+            )
+
+        # Move bullets
+        for bullet in bullets[:]:
+            bullet.y -= 9
+            if bullet.bottom < 0:
+                bullets.remove(bullet)
+
+        # Move enemies
+        for enemy in enemies[:]:
+            enemy.y += 3
+
+            if enemy.top > HEIGHT:
+                enemies.remove(enemy)
+                game_over = True
+
+            elif enemy.colliderect(player):
+                game_over = True
+
+        # Bullet-enemy collisions
+        for bullet in bullets[:]:
+            for enemy in enemies[:]:
+                if bullet.colliderect(enemy):
+                    bullets.remove(bullet)
+                    enemies.remove(enemy)
+                    score += 1
+                    break
+
+    # Draw everything
+    screen.fill(BLACK)
+
+    # Stars
+    for _ in range(40):
+        x = random.randint(0, WIDTH - 1)
+        y = random.randint(0, HEIGHT - 1)
+        screen.set_at((x, y), WHITE)
+
+    # Player spaceship
+    pygame.draw.polygon(
+        screen, BLUE,
+        [(player.centerx, player.top),
+         (player.left, player.bottom),
+         (player.right, player.bottom)]
+    )
+
+    # Bullets
+    for bullet in bullets:
+        pygame.draw.rect(screen, YELLOW, bullet)
+
+    # Enemies
+    for enemy in enemies:
+        pygame.draw.rect(screen, RED, enemy, border_radius=6)
+
+    draw_text(f"Score: {score}", 15, 15)
+
+    if game_over:
+        draw_text("GAME OVER!", 310, 250, RED)
+        draw_text(f"Final Score: {score}", 310, 295)
+        draw_text("Press R to Restart", 290, 340)
+
+    pygame.display.flip()
+
+pygame.quit()
+sys.exit()
