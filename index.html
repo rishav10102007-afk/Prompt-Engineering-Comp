@@ -1,140 +1,387 @@
 
-import pygame
-import random
-import sys
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore India | Tourism</title>
 
-pygame.init()
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-# Game settings
-WIDTH, HEIGHT = 800, 600
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Space Shooting Game")
+    body {
+      background: #f8fafc;
+      color: #222;
+    }
 
-clock = pygame.time.Clock()
-font = pygame.font.SysFont(None, 36)
+    header {
+      background: #063b36;
+      color: white;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
 
-# Colors
-WHITE = (255, 255, 255)
-BLUE = (50, 150, 255)
-RED = (255, 60, 60)
-YELLOW = (255, 230, 0)
-BLACK = (10, 10, 30)
+    header h2 {
+      color: #ffd166;
+    }
 
-# Player
-player = pygame.Rect(375, 520, 50, 40)
-player_speed = 6
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+    }
 
-# Bullets and enemies
-bullets = []
-enemies = []
-score = 0
-game_over = False
+    nav a:hover {
+      color: #ffd166;
+    }
 
-def draw_text(text, x, y, color=WHITE):
-    image = font.render(text, True, color)
-    screen.blit(image, (x, y))
+    .hero {
+      min-height: 440px;
+      padding: 80px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      background:
+        linear-gradient(#0007, #0008),
+        url("https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=1600&q=85")
+        center/cover;
+    }
 
-running = True
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 60px);
+      margin-bottom: 15px;
+    }
 
-while running:
-    clock.tick(60)
+    .hero p {
+      font-size: 19px;
+      margin-bottom: 25px;
+    }
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    .search {
+      display: flex;
+      max-width: 550px;
+      width: 100%;
+      gap: 10px;
+    }
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE and not game_over:
-                bullets.append(
-                    pygame.Rect(player.centerx - 4, player.top, 8, 18)
-                )
+    input, select, button {
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+    }
 
-            if event.key == pygame.K_r and game_over:
-                player.x = 375
-                bullets.clear()
-                enemies.clear()
-                score = 0
-                game_over = False
+    .search input {
+      flex: 1;
+      min-width: 0;
+    }
 
-    if not game_over:
-        keys = pygame.key.get_pressed()
+    button {
+      background: #f4a261;
+      color: #172b27;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
-            player.x -= player_speed
-        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
-            player.x += player_speed
-        if keys[pygame.K_UP] or keys[pygame.K_w]:
-            player.y -= player_speed
-        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            player.y += player_speed
+    button:hover {
+      background: #ffd166;
+    }
 
-        player.clamp_ip(screen.get_rect())
+    section {
+      padding: 55px 8%;
+    }
 
-        # Create enemies
-        if random.randrange(30) == 0:
-            enemies.append(
-                pygame.Rect(random.randint(0, WIDTH - 40), -40, 40, 35)
-            )
+    .heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-        # Move bullets
-        for bullet in bullets[:]:
-            bullet.y -= 9
-            if bullet.bottom < 0:
-                bullets.remove(bullet)
+    .heading h2 {
+      font-size: 32px;
+      color: #063b36;
+      margin-bottom: 10px;
+    }
 
-        # Move enemies
-        for enemy in enemies[:]:
-            enemy.y += 3
+    .destinations {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
+    }
 
-            if enemy.top > HEIGHT:
-                enemies.remove(enemy)
-                game_over = True
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px #0001;
+      transition: transform .2s;
+    }
 
-            elif enemy.colliderect(player):
-                game_over = True
+    .card:hover {
+      transform: translateY(-5px);
+    }
 
-        # Bullet-enemy collisions
-        for bullet in bullets[:]:
-            for enemy in enemies[:]:
-                if bullet.colliderect(enemy):
-                    bullets.remove(bullet)
-                    enemies.remove(enemy)
-                    score += 1
-                    break
+    .card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+    }
 
-    # Draw everything
-    screen.fill(BLACK)
+    .card-content {
+      padding: 20px;
+    }
 
-    # Stars
-    for _ in range(40):
-        x = random.randint(0, WIDTH - 1)
-        y = random.randint(0, HEIGHT - 1)
-        screen.set_at((x, y), WHITE)
+    .card-content h3 {
+      color: #063b36;
+      margin-bottom: 10px;
+    }
 
-    # Player spaceship
-    pygame.draw.polygon(
-        screen, BLUE,
-        [(player.centerx, player.top),
-         (player.left, player.bottom),
-         (player.right, player.bottom)]
-    )
+    .card-content p {
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
 
-    # Bullets
-    for bullet in bullets:
-        pygame.draw.rect(screen, YELLOW, bullet)
+    .card-content button {
+      width: 100%;
+    }
 
-    # Enemies
-    for enemy in enemies:
-        pygame.draw.rect(screen, RED, enemy, border_radius=6)
+    .booking {
+      background: #e8f3ef;
+    }
 
-    draw_text(f"Score: {score}", 15, 15)
+    .booking form {
+      max-width: 550px;
+      margin: auto;
+      display: grid;
+      gap: 14px;
+    }
 
-    if game_over:
-        draw_text("GAME OVER!", 310, 250, RED)
-        draw_text(f"Final Score: {score}", 310, 295)
-        draw_text("Press R to Restart", 290, 340)
+    .booking h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #063b36;
+    }
 
-    pygame.display.flip()
+    footer {
+      background: #063b36;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      line-height: 1.8;
+    }
 
-pygame.quit()
-sys.exit()
+    @media (max-width: 600px) {
+      header {
+        justify-content: center;
+        text-align: center;
+      }
+
+      nav a {
+        margin: 5px;
+        display: inline-block;
+      }
+
+      .search {
+        flex-direction: column;
+      }
+
+      section {
+        padding: 40px 5%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h2>Explore India 🇮🇳</h2>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#destinations">Places</a>
+      <a href="#booking">Booking</a>
+    </nav>
+  </header>
+
+  <div class="hero" id="home">
+    <h1>Discover Incredible India</h1>
+    <p>Explore beautiful places. Create unforgettable memories.</p>
+
+    <div class="search">
+      <input id="searchInput"
+             type="text"
+             placeholder="Search a destination...">
+      <button onclick="searchPlaces()">Search</button>
+    </div>
+  </div>
+
+  <section id="destinations">
+    <div class="heading">
+      <h2>Popular Destinations</h2>
+      <p>Find your next adventure in India.</p>
+    </div>
+
+    <div class="destinations" id="placeList">
+
+      <div class="card" data-name="jaipur rajasthan">
+        <img src="https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&fit=crop&w=700&q=80"
+             alt="Hawa Mahal in Jaipur">
+        <div class="card-content">
+          <h3>Jaipur, Rajasthan</h3>
+          <p>Discover royal palaces, colorful markets,
+             and magnificent forts.</p>
+          <button onclick="bookPlace('Jaipur')">
+            Explore Jaipur
+          </button>
+        </div>
+      </div>
+
+      <div class="card" data-name="agra taj mahal">
+        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=700&q=80"
+             alt="Taj Mahal in Agra">
+        <div class="card-content">
+          <h3>Agra, Uttar Pradesh</h3>
+          <p>Visit the Taj Mahal, one of the world's
+             most famous monuments.</p>
+          <button onclick="bookPlace('Agra')">
+            Explore Agra
+          </button>
+        </div>
+      </div>
+
+      <div class="card" data-name="jodhpur rajasthan">
+        <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?auto=format&fit=crop&w=700&q=80"
+             alt="Historic architecture in Rajasthan">
+        <div class="card-content">
+          <h3>Jodhpur, Rajasthan</h3>
+          <p>Experience the Blue City, Mehrangarh Fort,
+             and Rajasthani culture.</p>
+          <button onclick="bookPlace('Jodhpur')">
+            Explore Jodhpur
+          </button>
+        </div>
+      </div>
+
+      <div class="card" data-name="kerala backwaters">
+        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=700&q=80"
+             alt="Green Kerala landscape">
+        <div class="card-content">
+          <h3>Kerala</h3>
+          <p>Enjoy peaceful backwaters, green hills,
+             and tropical nature.</p>
+          <button onclick="bookPlace('Kerala')">
+            Explore Kerala
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <p id="noResults" hidden style="text-align:center; margin-top:20px">
+      No destinations found. Try another search.
+    </p>
+  </section>
+
+  <section class="booking" id="booking">
+    <h2>Plan Your Trip ✈️</h2>
+
+    <form id="bookingForm">
+      <input id="name" type="text"
+             placeholder="Your full name" required>
+
+      <input id="email" type="email"
+             placeholder="Your email address" required>
+
+      <select id="destination" required>
+        <option value="">Choose destination</option>
+        <option>Jaipur</option>
+        <option>Agra</option>
+        <option>Jodhpur</option>
+        <option>Kerala</option>
+      </select>
+
+      <label for="travelDate">Travel date</label>
+      <input id="travelDate" type="date" required>
+
+      <input id="travelers" type="number"
+             min="1" max="50"
+             placeholder="Number of travelers" required>
+
+      <button type="submit">Submit Trip Request</button>
+    </form>
+
+    <p id="message" role="status"
+       style="text-align:center; margin-top:20px"></p>
+  </section>
+
+  <footer>
+    <h3>Explore India 🇮🇳</h3>
+    <p>Your journey, your story, your adventure.</p>
+    <p>© 2026 Explore India. Demo tourism website.</p>
+  </footer>
+
+  <script>
+    function searchPlaces() {
+      const query = document.getElementById("searchInput")
+        .value.trim().toLowerCase();
+
+      const cards = document.querySelectorAll(".card");
+      let visible = 0;
+
+      cards.forEach(card => {
+        const name = card.dataset.name;
+        const matches = name.includes(query);
+
+        card.style.display = matches ? "" : "none";
+
+        if (matches) visible++;
+      });
+
+      document.getElementById("noResults").hidden =
+        visible !== 0;
+    }
+
+    document.getElementById("searchInput")
+      .addEventListener("keydown", event => {
+        if (event.key === "Enter") searchPlaces();
+      });
+
+    function bookPlace(place) {
+      document.getElementById("destination").value = place;
+      document.getElementById("booking").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    document.getElementById("bookingForm")
+      .addEventListener("submit", event => {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const place = document.getElementById("destination").value;
+
+        document.getElementById("message").textContent =
+          `Thank you, ${name}! Your trip request for ${place} ` +
+          "has been recorded in this demo. No actual booking was made.";
+
+        event.target.reset();
+      });
+  </script>
+
+</body>
+</html>
+
+
+
